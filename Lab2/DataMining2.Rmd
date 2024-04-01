@@ -1,0 +1,34 @@
+---
+title: "Advanced Data Mining Lab 2"
+author: "Simge Çınar"
+date: "2024-02-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(RWeka)
+```
+
+```{r}
+df <- read.arff("/Users/simgecinar/Desktop/iris.arff")
+df
+```
+```{r}
+max(df$petalwidth)
+```
+
+
+
+
+```{r}
+library(car)
+scatterplotMatrix(df[,1:4], 
+                  regLine = FALSE, 
+                  smooth = list(spread=FALSE, col.smooth = "red", lty.smooth = "solid"))
+```
+
+
+
+
+

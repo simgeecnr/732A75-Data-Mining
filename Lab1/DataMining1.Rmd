@@ -1,0 +1,95 @@
+---
+title: "Advanced Data Mining Lab 1"
+author: "Simge Çınar"
+date: "2024-02-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(RWeka)
+```
+
+```{r}
+df <- read.arff("/Users/simgecinar/Desktop/food.arff")
+df
+```
+
+```{r}
+cor(df$Energy, df$Fat)
+```
+
+```{r}
+summary(df)
+```
+```{r}
+library(car)
+scatterplotMatrix(df[,2:6], 
+                  regLine = FALSE, 
+                  smooth = list(spread=FALSE, col.smooth = "red", lty.smooth = "solid"))
+```
+
+
+```{r}
+boxplot(df[,2:6], ylab = "Amount")
+```
+
+```{r}
+# Canned olanların calcium seviyesi daha yüksek, belki onlr ayrı bi cluster oluşturabilir
+plot(df$Iron, df$Calcium)
+text(df$Iron, df$Calcium, labels = df$Name, pos = 1, cex = 0.5)
+```
+
+```{r}
+plot(df$Energy, df$Protein)
+text(df$Energy, df$Protein, labels = df$Name, pos = 1, cex = 0.5)
+```
+
+```{r}
+cluster_no <- seq(2,11)
+error <- c(4.98, 3.78, 2.89,  1.53, 1.37, 1.37, 0.76, 0.57, 0.56, 0.46)
+
+plot(cluster_no, error, col = "red", main = "Error vs. Cluster Graph", ylab = "Sum of Squared Errors", xlab = "Cluster")
+```
+
+
+```{r}
+# There are outliers in the calcium
+library(outliers)
+test <- grubbs.test(df$Protein)
+test$p.value
+test$p.value < 0.05
+```
+
+```{r}
+plot(df$Name, df$Calcium, 
+     xlab = "Energy", ylab = "Fat", 
+     main = "Energy vs Fat")
+
+text(df$Name, df$Calcium, labels = df$Name, pos = 1, cex = 0.4)
+```
+```{r}
+# Assuming your dataframe is called food_data
+# You can replace "energy" and "fat" with your actual column names
+
+# Select relevant columns for clustering
+features <- df[, 2:6]
+
+# Set the number of clusters (K)
+k <- 4
+
+# Perform k-means clustering
+kmeans_result <- kmeans(features, centers = k)
+
+# Print the cluster centers
+print(kmeans_result$centers)
+
+# Add the cluster assignments to the original dataframe
+df$cluster <- as.factor(kmeans_result$cluster)
+```
+
+```{r}
+# make a comment about mean and median
+boxplot(df$Energy)
+```
+
