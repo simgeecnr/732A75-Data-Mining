@@ -4,7 +4,7 @@ Welcome to the Data Mining Lab Projects repository! These projects were complete
 
 ## Projects
 
-**1) Clustering Lab:** 
-**2) Association Analysis Lab 1:**
-**3) Association Analysis Lab 2:**
+**1) Clustering Lab:** \\
+**2) Association Analysis Lab 1:** \\
+**3) Association Analysis Lab 2:** \\
  
